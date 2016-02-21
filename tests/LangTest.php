@@ -15,7 +15,7 @@
 
 namespace JBZoo\PHPUnit;
 
-use JBZoo\Lang\Exception;
+use JBZoo\Lang\Lang;
 
 /**
  * Class PackageTest
@@ -23,11 +23,112 @@ use JBZoo\Lang\Exception;
  */
 class PackageTest extends PHPUnit
 {
+    public function testTranslate()
+    {
+        $langEn = new Lang('en');
+        $langEn->load(PROJECT_TESTS . '/fixtures/path-1');
+        isSame('Some message', $langEn->translate('message'));
+
+        $langRu = new Lang('ru');
+        $langRu->load(PROJECT_TESTS . '/fixtures/path-1');
+        isSame('Какое-то сообщение', $langRu->translate('message'));
+    }
+
+    public function testTranslateOverloadPath()
+    {
+        $langEn = new Lang('en');
+        $langEn->load(PROJECT_TESTS . '/fixtures/path-1');
+        $langEn->load(PROJECT_TESTS . '/fixtures/path-2');
+
+        isSame('Some message (overload)', $langEn->translate('message'));
+    }
+
+    public function testTranslateUndefined()
+    {
+        $lang = new Lang('en');
+        $uniq = uniqid();
+        isSame($uniq, $lang->translate($uniq));
+
+        $lang = new Lang('en');
+        $lang->load(PROJECT_TESTS . '/fixtures/path-1');
+        $uniq = uniqid();
+        isSame($uniq, $lang->translate($uniq));
+    }
+
+    public function testModuleRegisterOnlyModule()
+    {
+        $lang = new Lang('en');
+        $lang->load(PROJECT_TESTS . '/fixtures/path-1', 'test'); // "_global" module registers automaticaly
+
+        // Get global
+        isSame('Some message', $lang->translate('message'));
+
+        // Get from module (exists)
+        isSame('Some another message', $lang->translate('module.another_message'));
+
+        // Get from module (not exists)
+        isSame('module.another_message_undefined', $lang->translate('module.another_message_undefined'));
+
+        // Try to get module key
+        isSame('module_message', $lang->translate('module_message'));
+    }
+
+    public function testModuleRegisterBoth()
+    {
+        $lang = new Lang('en');
+        $lang->load(PROJECT_TESTS . '/fixtures/path-1');
+        $lang->load(PROJECT_TESTS . '/fixtures/path-1', 'test');
+
+        // Get global
+        isSame('Some message', $lang->translate('message'));
+
+        // Get from module (exists)
+        isSame('Some another message', $lang->translate('module.another_message'));
+
+        // Get from module (not exists)
+        isSame('module.another_message_undefined', $lang->translate('module.another_message_undefined'));
+
+        // Try to get module key
+        isSame('module_message', $lang->translate('module_message'));
+    }
+
+    public function testLoadpaths()
+    {
+        $lang = new Lang('en');
+        isTrue($lang->load(PROJECT_TESTS . '/fixtures/path-1'));
+        isFalse($lang->load(PROJECT_TESTS . '/fixtures/undefined/path/' . uniqid()));
+    }
+
     /**
      * @expectedException \JBZoo\Lang\Exception
      */
-    public function testShouldShowException()
+    public function testLoadUndefinedFormat()
     {
-        throw new Exception('Test message');
+        $lang = new Lang('en');
+        $lang->load(PROJECT_TESTS . '/fixtures/path-1', 'test', 'qwerty');
+    }
+
+    /**
+     * @expectedException \JBZoo\Lang\Exception
+     */
+    public function testInvalidCodeLength()
+    {
+        (new Lang('qwerty'));
+    }
+
+    /**
+     * @expectedException \JBZoo\Lang\Exception
+     */
+    public function testInvalidCodeNums()
+    {
+        (new Lang('12'));
+    }
+
+    /**
+     * @expectedException \JBZoo\Lang\Exception
+     */
+    public function testInvalidCodeEmpty()
+    {
+        (new Lang(null));
     }
 }

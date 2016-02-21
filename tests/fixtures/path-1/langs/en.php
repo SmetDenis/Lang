@@ -13,12 +13,7 @@
  * @author    Denis Smetannikov <denis@jbzoo.com>
  */
 
-namespace JBZoo\Lang;
-
-/**
- * Class Lang
- * @package JBZoo\Lang
- */
-class Lang
-{
-}
+return array(
+    'message'         => 'Some message',
+    'another_message' => 'Some another message',
+);
