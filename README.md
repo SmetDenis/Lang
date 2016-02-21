@@ -1,4 +1,4 @@
-# JBZoo Lang  [![Build Status](https://travis-ci.org/JBZoo/Lang.svg?branch=master)](https://travis-ci.org/JBZoo/Lang)      [![Coverage Status](https://coveralls.io/repos/JBZoo/Lang/badge.svg?branch=master&service=github)](https://coveralls.io/github/JBZoo/Lang?branch=master)
+# JBZoo Lang  [![Build Status](https://travis-ci.org/JBZoo/Lang.svg?branch=master)](https://travis-ci.org/JBZoo/Lang)      [![Coverage Status](https://coveralls.io/repos/github/JBZoo/Lang/badge.svg?branch=master)](https://coveralls.io/github/JBZoo/Lang?branch=master)
 
 #### PHP library description
 
