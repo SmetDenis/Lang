@@ -95,8 +95,6 @@ class Lang
      */
     public function translate($origMessage)
     {
-        $origMessage = $this->_cleanMessage($origMessage);
-
         if (false === strpos($origMessage, '.')) {
             $module  = self::DEFAULT_MODULE;
             $message = $origMessage;
@@ -104,6 +102,8 @@ class Lang
             list($module, $message) = explode('.', $origMessage, 2);
         }
 
+        $module = $this->_clean($module);
+        $module = $this->_cleanMessage($module);
         $format = $this->_storage->get($module, self::DEFAULT_FORMAT);
 
         $list = $this->_listFactory($module, $format);
@@ -168,7 +168,7 @@ class Lang
         if ($module === self::DEFAULT_MODULE) {
             $path = $module . ':langs/' . $this->_code . '.' . $format;
         } else {
-            $path = $module . ':langs/' . $this->_code . '-' . $module . '.' . $format;
+            $path = $module . ':langs/' . $this->_code . '.' . $module . '.' . $format;
         }
         $listPath = $this->_path->get($path);
 
