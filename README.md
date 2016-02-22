@@ -42,6 +42,7 @@ $lang->translate('module_name.message_key');    // Check module "module_name" an
 
 ## Speed of one(!) call method `translate()`
 [PHP 5.6.x](https://travis-ci.org/JBZoo/Lang/jobs/110844247#L470) - Minimum time ~0.05ms
+
 [PHP 7.0.x](https://travis-ci.org/JBZoo/Lang/jobs/110844248#L475) - Minimum time ~0.004ms
 
 
