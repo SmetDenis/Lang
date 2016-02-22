@@ -29,10 +29,10 @@ $lang->load('./somepath/glob/', 'module_name');     // ./somepath/glob/langs/en.
 $lang->load('./somepath/module/', 'module_name');   // ./somepath/module/langs/en.module_name.php (overload previous)
 
 // Other formats
-$lang->load('./somepath/glob/', 'my_mod', 'php');   // ./somepath/glob/langs/en.my_mod.json
+$lang->load('./somepath/glob/', 'my_mod', 'php');   // ./somepath/glob/langs/en.my_mod.php
 $lang->load('./somepath/glob/', 'my_mod', 'json');  // ./somepath/glob/langs/en.my_mod.json
 $lang->load('./somepath/glob/', 'my_mod', 'ini');   // ./somepath/glob/langs/en.my_mod.ini
-$lang->load('./somepath/glob/', 'my_mod', 'yml');   // ./somepath/glob/langs/en.my_mod.yml
+$lang->load('./somepath/glob/', 'my_mod', 'yml');   // ./somepath/glob/langs/en.my_mod.yml  (Symfony/Yaml)
 
 // Traslate
 $lang->translate('message_key');                // Only global
@@ -42,7 +42,6 @@ $lang->translate('module_name.message_key');    // Check module "module_name" an
 
 ## Speed of one(!) call method `translate()`
 [PHP 5.6.x](https://travis-ci.org/JBZoo/Lang/jobs/110844247#L470) - Minimum time ~0.05ms
-
 [PHP 7.0.x](https://travis-ci.org/JBZoo/Lang/jobs/110844248#L475) - Minimum time ~0.004ms
 
 
