@@ -58,16 +58,16 @@ class PackageTest extends PHPUnit
     public function testModuleRegisterOnlyModule()
     {
         $lang = new Lang('en');
-        $lang->load(PROJECT_TESTS . '/fixtures/path-1', 'test'); // "_global" module registers automaticaly
+        $lang->load(PROJECT_TESTS . '/fixtures/path-1', 'my_module'); // Default path will be registered automaticaly
 
         // Get global
         isSame('Some message', $lang->translate('message'));
 
         // Get from module (exists)
-        isSame('Some another message', $lang->translate('module.another_message'));
+        isSame('Some module message (module)', $lang->translate('my_module.module_message'));
 
         // Get from module (not exists)
-        isSame('module.another_message_undefined', $lang->translate('module.another_message_undefined'));
+        isSame('my_module.another_message_undefined', $lang->translate('my_module.another_message_undefined'));
 
         // Try to get module key
         isSame('module_message', $lang->translate('module_message'));
@@ -77,16 +77,16 @@ class PackageTest extends PHPUnit
     {
         $lang = new Lang('en');
         $lang->load(PROJECT_TESTS . '/fixtures/path-1');
-        $lang->load(PROJECT_TESTS . '/fixtures/path-1', 'test');
+        $lang->load(PROJECT_TESTS . '/fixtures/path-1', 'my_module');
 
         // Get global
         isSame('Some message', $lang->translate('message'));
 
         // Get from module (exists)
-        isSame('Some another message', $lang->translate('module.another_message'));
+        isSame('Some module message (module)', $lang->translate('my_module.module_message'));
 
         // Get from module (not exists)
-        isSame('module.another_message_undefined', $lang->translate('module.another_message_undefined'));
+        isSame('my_module.another_message_undefined', $lang->translate('my_module.another_message_undefined'));
 
         // Try to get module key
         isSame('module_message', $lang->translate('module_message'));

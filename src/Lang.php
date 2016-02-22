@@ -65,7 +65,7 @@ class Lang
      * @throws Exception
      * @throws \JBZoo\Path\Exception
      */
-    public function load($path, $module = self::DEFAULT_MODULE, $format = self::DEFAULT_FORMAT)
+    public function load($path, $module = null, $format = self::DEFAULT_FORMAT)
     {
         $module = $this->_cleanMessage($module);
         $format = $this->_clean($format);
@@ -102,9 +102,9 @@ class Lang
             list($module, $message) = explode('.', $origMessage, 2);
         }
 
-        $module = $this->_clean($module);
-        $module = $this->_cleanMessage($module);
-        $format = $this->_storage->get($module, self::DEFAULT_FORMAT);
+        $module  = $this->_clean($module);
+        $message = $this->_cleanMessage($message);
+        $format  = $this->_storage->get($module, self::DEFAULT_FORMAT);
 
         $list = $this->_listFactory($module, $format);
         if ($text = $list->get($message)) {
@@ -140,6 +140,7 @@ class Lang
     {
         $message = preg_replace('#[^a-z0-9_\.]#i', '', $message);
         $message = $this->_clean($message);
+        $message = $message ?: self::DEFAULT_MODULE;
 
         return $message;
     }
