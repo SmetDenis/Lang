@@ -49,8 +49,8 @@ $lang->translate('module_name.message_key');    // Check module "module_name" an
 
 ## Unit tests and check code style
 ```sh
-composer update-all
-composer test
+make
+make test-all
 ```
 
 
